@@ -1,70 +1,82 @@
-# Getting Started with Create React App
+# React Product Page for E-Commerce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a simple but functional e-commerce product page built with React. Its primary purpose is to serve as a demonstration piece for a Software Quality Analyst (SQA) interview process.
+
+The application was intentionally built with several common bugs—spanning UI, functionality, and logic—to showcase a comprehensive testing strategy.
+
+![Product Page Screenshot](screenshot.png)
+
+## Key Features
+
+*   **Product Image Gallery**: Displays a main product image and several thumbnails.
+*   **Product Details**: Shows the product title, price, and a descriptive paragraph.
+*   **Quantity Selector**: An input field to allow users to specify the number of items.
+*   **Add to Cart Button**: A button with dynamic states (e.g., disabled/enabled).
+*   **Customer Reviews**: A static section displaying sample customer feedback.
+
+## Tech Stack
+
+*   **Frontend**: [React.js](https://reactjs.org/)
+*   **Styling**: Plain CSS3
+*   **Testing**: [Jest](https://jestjs.io/) & [React Testing Library](https://testing-library.com/)
+
+---
+
+## Setup and Installation
+
+To get this project running locally, follow these steps:
+
+1.  **Clone the repository**
+    ```bash
+    # Replace with your actual repository URL
+    git clone https://github.com/your-username/your-repo-name.git
+    ```
+
+2.  **Navigate to the project directory**
+    ```bash
+    cd testing-app
+    ```
+
+3.  **Install dependencies**
+    ```bash
+    npm install
+    ```
+
+---
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Runs the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload when you make changes.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode. This command executes all automated unit and integration tests written for the application.
 
-### `npm run build`
+**Note:** One test is *expected to fail*. This failing test (`should disable the "Add to Cart" button when quantity is not a number`) was written intentionally to prove that the automated test suite can successfully identify and report bugs in the codebase.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Testing Strategy & Bug Findings
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+A two-pronged testing approach was used on this application:
 
-### `npm run eject`
+### 1. Automated Testing (Unit & Integration)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Automated tests were written using **Jest** and **React Testing Library** to create a reliable regression suite.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+*   **Coverage**: Tests cover component rendering, user interactions (`fireEvent`), and state-dependent logic.
+*   **Key Finding**: An automated test was successfully created to catch a critical logic flaw.
+    *   **BUG-01 (Caught by Automation)**: The "Add to Cart" button is not disabled when non-numeric text (e.g., "abc") is entered into the quantity field. The failing test provides immediate feedback on this bug.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 2. Manual & Exploratory Testing
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Manual testing was performed to identify usability, UI, and logical issues that are not easily covered by unit tests.
 
-## Learn More
+*   **Key Findings**:
+    *   **BUG-02 (Logic Error)**: The quantity field incorrectly accepts **negative numbers** (e.g., -1). While the "Add to Cart" button is correctly disabled, the state itself is invalid.
+    *   **BUG-03 (Functional Error)**: The **thumbnail images** in the product gallery are not functional. Clicking them does not update the main product image.
+    *   **BUG-04 (UI/Responsiveness Error)**: The page is **not responsive**. On mobile viewports, the layout breaks, requiring horizontal scrolling and making the page difficult to use.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This comprehensive testing strategy demonstrates the ability to both build a preventative automated safety net and perform the critical, user-focused exploratory testing necessary to ensure a high-quality product.
