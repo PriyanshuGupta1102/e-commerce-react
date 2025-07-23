@@ -4,7 +4,7 @@ This project is a simple but functional e-commerce product page built with React
 
 The application was intentionally built with several common bugs—spanning UI, functionality, and logic—to showcase a comprehensive testing strategy.
 
-![Product Page Screenshot](screenshot.png)
+![Product Page Screenshot](Screenshot.png)
 
 ## Key Features
 
